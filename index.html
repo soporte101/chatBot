@@ -1,4 +1,5 @@
 <!-- CHATBOT  -->
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,52 +8,53 @@
     <link rel="stylesheet" href="styleChatbot.css">
 
 </head>
+
 <body>
-    
+
     <section>
         <button class="chatbot-toggler">
             <span><i class='bx bx-bot'></i></span>
             <span><i class='bx bx-x'></i></span>
         </button>
         <div class="chatbot">
-      <header>
-          <h2>Chatbot</h2>
-          <span class="close-btn material-symbols-outlined"><i class='bx bx-x'></i></span>
-        </header>
-        <ul class="chatbox hidden">
-            <li class="chat incoming">
-                <span><i class='bx bx-bot'></i></span>
-                <p>Hola! 👋<br>Como podemos ayudarte hoy?</p>
-            </li>
-        </ul>
-        <!-- SCREEN FOR FORM -->
-      <ul class="chatbox form register-chat">
-          <div class="header-form">
-              <h3>BIENVENIDO A TU ASISTENTE VIRTUAL DE LA ALCALDIA DE URIBIA</h3>
-              <p>Ingrese por favor los siguientes datos para continuar con el proceso.</p>
+            <header>
+                <h2>Chatbot</h2>
+                <span class="close-btn material-symbols-outlined"><i class='bx bx-x'></i></span>
+            </header>
+            <ul class="chatbox hidden">
+                <li class="chat incoming">
+                    <span><i class='bx bx-bot'></i></span>
+                    <p></p>
+                </li>
+            </ul>
+            <!-- SCREEN FOR FORM -->
+            <ul class="chatbox form register-chat">
+                <div class="header-form">
+                    <h3>BIENVENIDO A TU ASISTENTE VIRTUAL DE LA ALCALDIA DE URIBIA</h3>
+                    <p>Ingrese por favor los siguientes datos para continuar con el proceso.</p>
+                </div>
+                <form action="#" id="register-user">
+                    <div class="input-field">
+                        <input type="text" id="name-user" name="name-user" placeholder="Cual es tu Nombre">
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="lastname" name="lastname" placeholder="Cual es tu Apellido">
+                    </div>
+                    <div class="input-field">
+                        <input type="email" id="email" placeholder="Cual es tu Correo Electronico">
+                    </div>
+                    <div class="input-field button">
+                        <input type="submit" value="Continuar">
+                    </div>
+                </form>
+            </ul>
+
+            <div class="chat-input">
+                <textarea id="txt-area" placeholder="Enter a Message..." spellcheck="false" required></textarea>
+                <span id="send-btn"><i class='bx bx-send'></i></span>
             </div>
-        <form action="#">
-            <div class="input-field">
-                <input type="text" placeholder="Cual es tu Nombre">
-            </div>
-            <div class="input-field">
-                <input type="text" placeholder="Cual es tu Apellido">
-            </div>
-            <div class="input-field">
-                <input type="email" placeholder="Cual es tu Correo Electronico">
-            </div>
-            <div class="input-field button">
-                <input type="button" value="Continuar">
-            </div>
-        </form>
-    </ul>
-    
-    <div class="chat-input">
-        <textarea id="txt-area" placeholder="Enter a Message..." spellcheck="false" required></textarea>
-        <span id="send-btn"><i class='bx bx-send'></i></span>
-    </div>
-    </div>
+        </div>
     </section>
     <!-- CHATBOT  -->
     <script src="Chatbot.js"></script>
-    </body>
+</body>
