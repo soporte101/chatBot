@@ -11,7 +11,7 @@ const continuarBtn = document.querySelector(
 );
 
 let userMessage = null; // Variable to store user's message
-let nameuser;
+let nameuser = JSON.parse(localStorage.getItem("data"))?.nombre || "User";
 
 const createChatLi = (message, className) => {
   // Create a chat <li> element with passed message and className
@@ -112,6 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const nameuser = document.getElementById("name-user").value;
     const lastname = document.getElementById("lastname").value;
     const email = document.getElementById("email").value;
+    const politicaCheckbox = document.getElementById("politicaCheckbox");
+    const acuerdosCheckbox = document.getElementById("acuerdosCheckbox");
+    const txtcheck1 = document.querySelector(".txt-check1");
+    const txtcheck2 = document.querySelector(".txt-check2");
 
     if (!validateForm()) {
       event.preventDefault();
@@ -120,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
       saveEnLocalStorage(nameuser + " " + lastname, email, ScreenMainChat);
       // Limpiar el formulario
       formUser.reset();
-    
     }
 
     function validateForm() {
@@ -154,6 +157,15 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         emailError.textContent = "";
       }
+      if (!politicaCheckbox.checked || !acuerdosCheckbox.checked) {
+        txtcheck1.style.color = "red";
+        txtcheck2.style.color = "red";
+
+        isValid = false;
+      } else {
+        txtcheck1.style.color = "";
+        txtcheck2.style.color = "";
+      }
 
       return isValid;
     }
@@ -178,10 +190,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+function getDatalocalStorage() {
   // Recuperar datos del localStorage
   const savedData = localStorage.getItem("data");
-
   // Verificar si hay datos guardados
   if (savedData) {
     const parsedData = JSON.parse(savedData);
@@ -189,9 +200,11 @@ document.addEventListener("DOMContentLoaded", function () {
     nameuser = parsedData.nombre;
     // Llamar a una función y pasar el nombre como argumento
   }
-});
+}
 
 function ScreenMainChat() {
+  getDatalocalStorage();
+
   chatBoxInput.style.visibility = "visible";
   if (chatBoxInput.style.visibility == "visible") {
     container_form.style.display = "none";

@@ -70,6 +70,7 @@ body.show-chatbot .chatbot-toggler span:last-child {
   position: fixed;
   right: 35px;
   bottom: 90px;
+  height: 70%;
   width: 420px;
   background: var(--secondColor);
   border-radius: 15px;
@@ -97,7 +98,7 @@ body.show-chatbot .chatbot {
 }
 .chatbot header span {
   position: absolute;
-  right: 15px;
+  right: 35px;
   top: 50%;
   display: none;
   cursor: pointer;
@@ -224,6 +225,10 @@ header h2 {
   }
 }
 /* FORM STYLE */
+.form {
+    overflow-y: auto;
+    padding: 30px 20px 100px;
+}
 .header-form h3 {
   margin-bottom: 20px;
 }
@@ -266,6 +271,13 @@ header h2 {
   background-color: #265df2;
 }
 
+.checkboxs {
+  margin-top: 25px;
+  font-size: 12px;
+}
+#acuerdosCheckbox { 
+  margin-top: 0px;
+}
 .error-message {
   color: red;
   font-size: 12px;
