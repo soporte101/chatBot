@@ -226,8 +226,8 @@ header h2 {
 }
 /* FORM STYLE */
 .form {
-    overflow-y: auto;
-    padding: 30px 20px 100px;
+  overflow-y: auto;
+  padding: 30px 20px 100px;
 }
 .header-form h3 {
   margin-bottom: 20px;
@@ -239,7 +239,7 @@ header h2 {
   margin-top: 30px;
 }
 .input-field input {
- /*  position: absolute; */
+  /*  position: absolute; */
   height: 100%;
   width: 100%;
   /* padding: 0 10px; */
@@ -275,7 +275,7 @@ header h2 {
   margin-top: 25px;
   font-size: 12px;
 }
-#acuerdosCheckbox { 
+#acuerdosCheckbox {
   margin-top: 0px;
 }
 .error-message {
