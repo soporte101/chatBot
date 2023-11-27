@@ -3,6 +3,12 @@ const closeBtn = document.querySelector(".close-btn");
 const chatbox = document.querySelector(".chatbox");
 const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
+const chatBoxInput = document.querySelector(".chat-input");
+const container_form = document.querySelector(".register-chat");
+const container_chatbox = document.querySelector(".hidden");
+const continuarBtn = document.querySelector(
+  ".input-field.button input[type='button']"
+);
 
 let userMessage = null; // Variable to store user's message
 let nameuser;
@@ -97,41 +103,79 @@ chatbotToggler.addEventListener("click", () =>
 );
 
 /* FORM */
-const continuarBtn = document.querySelector(
-  ".input-field.button input[type='button']"
-);
-const chatBoxInput = document.querySelector(".chat-input");
-const container_form = document.querySelector(".register-chat");
-const container_chatbox = document.querySelector(".hidden");
-
-
 function ScreenMainChat() {
-    chatBoxInput.style.visibility = "visible"
-    if (chatBoxInput.style.visibility == "visible") {
-        container_form.style.display = 'none';
-        container_chatbox.classList.remove("hidden")
-        const chatList = document.querySelector('.chatbox');
-        const ultimoMensaje = chatList.lastElementChild;
-        if (ultimoMensaje.classList.contains('incoming')) {
-            const mensaje = ultimoMensaje.querySelector('p');
-            mensaje.innerHTML += "Hola! " +`${nameuser}`+"👋<br>Como podemos ayudarte hoy?" 
-        }
+  chatBoxInput.style.visibility = "visible";
+  if (chatBoxInput.style.visibility == "visible") {
+    container_form.style.display = "none";
+    container_chatbox.classList.remove("hidden");
+    const chatList = document.querySelector(".chatbox");
+    const ultimoMensaje = chatList.lastElementChild;
+    if (ultimoMensaje.classList.contains("incoming")) {
+      const mensaje = ultimoMensaje.querySelector("p");
+      mensaje.innerHTML +=
+        "Hola! " + `${nameuser}` + "👋<br>Como podemos ayudarte hoy?";
     }
+  }
 }
 document.addEventListener("DOMContentLoaded", function () {
   const formUser = document.getElementById("register-user");
 
   formUser.addEventListener("submit", function (event) {
-    event.preventDefault();
-
     // Obtener valores del formulario
     const nameuser = document.getElementById("name-user").value;
     const lastname = document.getElementById("lastname").value;
     const email = document.getElementById("email").value;
-    // Guardar datos en el localStorage
-    saveEnLocalStorage(nameuser + " " + lastname, email);
-    // Limpiar el formulario
-    formUser.reset();
+
+
+    if (!validateForm()) {
+      event.preventDefault();
+    } else {
+      // Guardar datos en el localStorage
+      saveEnLocalStorage(nameuser + " " + lastname, email);
+      // Limpiar el formulario
+      formUser.reset();
+      ScreenMainChat(); // siguiente pantalla
+    }
+
+    function validateForm() {
+      let isValid = true;
+
+      const nameError = document.getElementById("name-error");
+      const lastnameError = document.getElementById("lastname-error");
+      const emailError = document.getElementById("email-error");
+      // Validación del nombre
+      if (nameuser.trim() === "") {
+        nameError.textContent = "*El nombre es requerido";
+        isValid = false;
+      } else {
+        nameError.textContent = "";
+      }
+
+      // Validación del apellido
+      if (lastname.trim() === "") {
+        lastnameError.textContent = "*El apellido es requerido";
+        isValid = false;
+      } else {
+        lastnameError.textContent = "";
+      }
+      // Validación del correo electrónico
+      if (email.trim() === "") {
+        emailError.textContent = "*El correo electrónico es requerido";
+        isValid = false;
+      } else if (!isValidEmail(email.trim())) {
+        emailError.textContent = "*Ingrese un correo electrónico válido";
+        isValid = false;
+      } else {
+        emailError.textContent = "";
+      }
+
+      return isValid;
+    }
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
   });
 
   function saveEnLocalStorage(nombre, email) {
@@ -142,20 +186,18 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     // Guardar el objeto en el localStorage
     localStorage.setItem("data", JSON.stringify(savedData));
-    ScreenMainChat(); // siguiente pantalla
   }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Recuperar datos del localStorage
-    const savedData = localStorage.getItem('data');
+document.addEventListener("DOMContentLoaded", function () {
+  // Recuperar datos del localStorage
+  const savedData = localStorage.getItem("data");
 
-    // Verificar si hay datos guardados
-    if (savedData) {
-        const parsedData = JSON.parse(savedData);
-        // Acceder a los datos
-        nameuser = parsedData.nombre;
-        // Llamar a una función y pasar el nombre como argumento
-
-    } 
+  // Verificar si hay datos guardados
+  if (savedData) {
+    const parsedData = JSON.parse(savedData);
+    // Acceder a los datos
+    nameuser = parsedData.nombre;
+    // Llamar a una función y pasar el nombre como argumento
+  }
 });
