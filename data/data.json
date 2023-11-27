@@ -1,0 +1,29 @@
+{
+  "questions": [
+    {
+      "question": "¿Cuáles son los métodos de pago aceptados en la sección de pagos?",
+      "answer": "Los métodos de pago aceptados incluyen tarjetas de crédito, débito, PayPal y transferencias bancarias.",
+      "type": "pago"
+    },
+    {
+      "question": "¿Existe algún límite de monto para las transacciones de pago?",
+      "answer": "Sí, hay un límite de $5000 por transacción para garantizar la seguridad financiera.",
+      "type": "pago"
+    },
+    {
+      "question": "¿Cómo se manejan los reembolsos en caso de cancelación de un pedido?",
+      "answer": "Los reembolsos se procesan dentro de 3-5 días hábiles y se realizan a través del mismo método de pago utilizado.",
+      "type": "pago"
+    },
+    {
+      "question": "¿Hay algún programa de recompensas o descuentos asociado con ciertos métodos de pago?",
+      "answer": "La verificación de pagos se realiza mediante un sistema seguro que incluye la autenticación de dos factores y análisis de riesgos.",
+      "type": "pago"
+    },
+    {
+      "question": "¿Cuáles son los métodos de pago aceptados en la sección de pagos?",
+      "answer": "Sí, ofrecemos descuentos exclusivos para usuarios que utilicen ciertos métodos de pago, y hay un programa de recompensas para clientes frecuentes.",
+      "type": "pago"
+    }
+  ]
+}
