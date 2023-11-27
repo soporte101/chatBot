@@ -103,20 +103,7 @@ chatbotToggler.addEventListener("click", () =>
 );
 
 /* FORM */
-function ScreenMainChat() {
-  chatBoxInput.style.visibility = "visible";
-  if (chatBoxInput.style.visibility == "visible") {
-    container_form.style.display = "none";
-    container_chatbox.classList.remove("hidden");
-    const chatList = document.querySelector(".chatbox");
-    const ultimoMensaje = chatList.lastElementChild;
-    if (ultimoMensaje.classList.contains("incoming")) {
-      const mensaje = ultimoMensaje.querySelector("p");
-      mensaje.innerHTML +=
-        "Hola! " + `${nameuser}` + "👋<br>Como podemos ayudarte hoy?";
-    }
-  }
-}
+
 document.addEventListener("DOMContentLoaded", function () {
   const formUser = document.getElementById("register-user");
 
@@ -126,15 +113,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const lastname = document.getElementById("lastname").value;
     const email = document.getElementById("email").value;
 
-
     if (!validateForm()) {
       event.preventDefault();
     } else {
       // Guardar datos en el localStorage
-      saveEnLocalStorage(nameuser + " " + lastname, email);
+      saveEnLocalStorage(nameuser + " " + lastname, email, ScreenMainChat);
       // Limpiar el formulario
       formUser.reset();
-      ScreenMainChat(); // siguiente pantalla
+    
     }
 
     function validateForm() {
@@ -178,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  function saveEnLocalStorage(nombre, email) {
+  function saveEnLocalStorage(nombre, email, callBack) {
     // Crear un objeto con los datos
     const savedData = {
       nombre: nombre,
@@ -186,6 +172,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     // Guardar el objeto en el localStorage
     localStorage.setItem("data", JSON.stringify(savedData));
+    if (callBack) {
+      callBack();
+    }
   }
 });
 
@@ -201,3 +190,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Llamar a una función y pasar el nombre como argumento
   }
 });
+
+function ScreenMainChat() {
+  chatBoxInput.style.visibility = "visible";
+  if (chatBoxInput.style.visibility == "visible") {
+    container_form.style.display = "none";
+    container_chatbox.classList.remove("hidden");
+    const chatList = document.querySelector(".chatbox");
+    const ultimoMensaje = chatList.lastElementChild;
+    if (ultimoMensaje.classList.contains("incoming")) {
+      const mensaje = ultimoMensaje.querySelector("p");
+      mensaje.innerHTML +=
+        "Hola! " + `${nameuser}` + "👋<br>Como podemos ayudarte hoy?";
+    }
+  }
+}
