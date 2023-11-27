@@ -12,6 +12,6 @@ export const getData = () => {
     questions = res.questions;
     filters = res.filters;
     console.log([questions, filters]);
-    //Llama las funciones para pintar las tarjetas
+    //Llama las funciones para pintar las tarjetas y las preguntas
   });
 };
