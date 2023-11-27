@@ -1,76 +1,129 @@
 <!-- CHATBOT  -->
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>chatbot</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="styleChatbot.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chatbot</title>
+  <link
+    href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styleChatbot.css" />
 </head>
-
 <body>
 
-    <section>
-        <button class="chatbot-toggler">
-            <span><i class='bx bx-bot'></i></span>
-            <span><i class='bx bx-x'></i></span>
-        </button>
-        <div class="chatbot">
-            <header>
-                <h2>Chatbot</h2>
-                <span class="close-btn material-symbols-outlined"><i class='bx bx-x'></i></span>
-            </header>
-            <ul class="chatbox hidden">
-                <li class="chat incoming">
-                    <span><i class='bx bx-bot'></i></span>
-                    <p></p>
-                </li>
-            </ul>
-            <!-- SCREEN FOR FORM -->
-            <ul class="form register-chat">
-                <div class="header-form">
-                    <h3>BIENVENIDO A TU ASISTENTE VIRTUAL DE LA ALCALDIA DE URIBIA</h3>
-                    <p>Ingrese por favor los siguientes datos para continuar con el proceso.</p>
-                </div>
-                <form action="#" id="register-user">
-                    <div class="input-field">
-                        <input type="text" id="name-user" name="name-user" placeholder="Cual es tu Nombre">
-                        <div id="name-error" class="error-message"></div>
-                    </div>
-                    <div class="input-field">
-                        <input type="text" id="lastname" name="lastname" placeholder="Cual es tu Apellido">
-                        <div id="lastname-error" class="error-message"></div>
-                    </div>
-                    <div class="input-field">
-                        <input type="email" id="email" placeholder="Cual es tu Correo Electronico">
-                        <div id="email-error" class="error-message"></div>
-                    </div>
-                    <div class="checkboxs">
-                        <label class="txt-check1">
-                            <input type="checkbox" id="politicaCheckbox" name="politicaCheckbox">
-                            He leído y acepto la Política de datos personales
-                        </label>
-                    </div>
-                    <div class="checkboxs">
-                        <label class="txt-check2">
-                            <input type="checkbox" id="acuerdosCheckbox" name="acuerdosCheckbox">
-                            He leído y acepto los Acuerdos de uso
-                        </label>
-                    </div>
+  <section>
+      <button class="chatbot-toggler">
+          <span><i class='bx bx-bot'></i></span>
+          <span><i class='bx bx-x'></i></span>
+      </button>
+      <div class="chatbot">
+          <header>
+              <h2>Chatbot</h2>
+              <span class="close-btn material-symbols-outlined"><i class='bx bx-x'></i></span>
+          </header>
+          <ul class="chatbox hidden">
+              <li class="chat incoming">
+                  <span><i class='bx bx-bot'></i></span>
+                  <p></p>
+              </li>
+          </ul>
+          <!-- SCREEN FOR FORM -->
+          <ul class="form register-chat">
+              <div class="header-form">
+                  <h3>BIENVENIDO A TU ASISTENTE VIRTUAL DE LA ALCALDIA DE URIBIA</h3>
+                  <p>Ingrese por favor los siguientes datos para continuar con el proceso.</p>
+              </div>
+              <form action="#" id="register-user">
+                  <div class="input-field">
+                      <input type="text" id="name-user" name="name-user" placeholder="Cual es tu Nombre">
+                      <div id="name-error" class="error-message"></div>
+                  </div>
+                  <div class="input-field">
+                      <input type="text" id="lastname" name="lastname" placeholder="Cual es tu Apellido">
+                      <div id="lastname-error" class="error-message"></div>
+                  </div>
+                  <div class="input-field">
+                      <input type="email" id="email" placeholder="Cual es tu Correo Electronico">
+                      <div id="email-error" class="error-message"></div>
+                  </div>
+                  <div class="checkboxs">
+                      <label class="txt-check1">
+                          <input type="checkbox" id="politicaCheckbox" name="politicaCheckbox">
+                          He leído y acepto la Política de datos personales
+                      </label>
+                  </div>
+                  <div class="checkboxs">
+                      <label class="txt-check2">
+                          <input type="checkbox" id="acuerdosCheckbox" name="acuerdosCheckbox">
+                          He leído y acepto los Acuerdos de uso
+                      </label>
+                  </div>
 
-                    <div class="input-field button">
-                        <input type="submit" value="Continuar">
-                    </div>
-                </form>
-            </ul>
+                  <div class="input-field button">
+                      <input type="submit" value="Continuar">
+                  </div>
+              </form>
+          </ul>
 
-            <div class="chat-input">
-                <textarea id="txt-area" placeholder="Enter a Message..." spellcheck="false" required></textarea>
-                <span id="send-btn"><i class='bx bx-send'></i></span>
-            </div>
+          <div class="chat-input">
+              <textarea id="txt-area" placeholder="Enter a Message..." spellcheck="false" required></textarea>
+              <span id="send-btn"><i class='bx bx-send'></i></span>
+          </div>
+      </div>
+      <form action="#" id="register-user">
+        <div class="input-field">
+          <input
+            type="text"
+            id="name-user"
+            name="name-user"
+            placeholder="Cual es tu Nombre"
+          />
+          <div id="name-error" class="error-message"></div>
         </div>
-    </section>
-    <!-- CHATBOT  -->
-    <script src="Chatbot.js"></script>
+        <div class="input-field">
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            placeholder="Cual es tu Apellido"
+          />
+          <div id="lastname-error" class="error-message"></div>
+        </div>
+        <div class="input-field">
+          <input
+            type="email"
+            id="email"
+            placeholder="Cual es tu Correo Electronico"
+          />
+          <div id="email-error" class="error-message"></div>
+        </div>
+        <div class="input-field button">
+          <input type="submit" value="Continuar" />
+        </div>
+      </form>
+    </ul>
+
+    <div class="chat-input">
+      <textarea
+        id="txt-area"
+        placeholder="Enter a Message..."
+        spellcheck="false"
+        required
+      ></textarea>
+      <span id="send-btn"><i class="bx bx-send"></i></span>
+    </div>
+  </div>
+</section>
+<!-- CHATBOT  -->
+<script src="Chatbot.js"></script>
+<script src="./scripts/axios.min.js"></script>
+<script type="module" src="./scripts/main.js"></script>
 </body>
+</html>
+
+
+

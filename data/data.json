@@ -24,6 +24,132 @@
       "question": "¿Cuáles son los métodos de pago aceptados en la sección de pagos?",
       "answer": "Sí, ofrecemos descuentos exclusivos para usuarios que utilicen ciertos métodos de pago, y hay un programa de recompensas para clientes frecuentes.",
       "type": "pago"
+    },
+    {
+      "question": "¿Cuál es el tiempo estimado de procesamiento para los diferentes tipos de trámites?",
+      "answer": "Los documentos necesarios varían según el tipo de trámite, pero generalmente se requieren identificación oficial, formularios completados y comprobantes relacionados.",
+      "type": "tramite"
+    },
+    {
+      "question": "¿Cuál es el tiempo estimado de procesamiento para los diferentes tipos de trámites?",
+      "answer": "El tiempo de procesamiento varía según el trámite, pero se estima entre 7 y 14 días hábiles en promedio.",
+      "type": "tramite"
+    },
+    {
+      "question": "¿Existe alguna plataforma en línea para dar seguimiento al estado de un trámite?",
+      "answer": "Sí, contamos con una plataforma en línea donde los usuarios pueden dar seguimiento al estado de sus trámites ingresando su número de expediente.",
+      "type": "tramite"
+    },
+    {
+      "question": "¿Cuáles son los requisitos para realizar cambios o actualizaciones en un trámite en curso?",
+      "answer": "Los requisitos para cambios en un trámite dependen del tipo, pero generalmente se requiere notificación por escrito y documentación adicional si es necesario.",
+      "type": "tramite"
+    },
+    {
+      "question": "¿Se ofrecen servicios de asesoría o ayuda para completar los trámites de manera adecuada?",
+      "answer": "Sí, ofrecemos servicios de asesoría en línea y presenciales para ayudar a los clientes a completar sus trámites de manera correcta y eficiente.",
+      "type": "tramite"
+    },
+    {
+      "question": "¿Cuál es la tasa de criminalidad actual en nuestra ciudad?",
+      "answer": "La tasa de criminalidad actual es de 30 por cada 1,000 habitantes.",
+      "type": "interes"
+    },
+    {
+      "question": "¿Cuáles son los proyectos de desarrollo urbano planificados para el próximo año?",
+      "answer": "Entre los proyectos planificados para el próximo año se incluyen mejoras en infraestructuras viales y nuevas áreas verdes.",
+      "type": "interes"
+    },
+    {
+      "question": "¿Cuántos parques públicos hay y cuáles son sus horarios de apertura?",
+      "answer": "Tenemos 8 parques públicos, y la mayoría están abiertos de 6 a.m. a 9 p.m.",
+      "type": "interes"
+    },
+    {
+      "question": "¿Cuál es la última actualización sobre la calidad del agua en la zona?",
+      "answer": "La calidad del agua se monitorea regularmente; la última evaluación indicó que cumple con los estándares de seguridad.",
+      "type": "interes"
+    },
+    {
+      "question": "¿Cuándo está programada la próxima reunión del consejo municipal y cuál es la agenda?",
+      "answer": "La próxima reunión del consejo municipal está programada para el 20/12/23 a las 6:00PM, y la agenda incluirá temas como Movilidad, Seguridad, etc.",
+      "type": "interes"
+    },
+    {
+      "question": "¿Cuáles son los requisitos para obtener un permiso de construcción en el área residencial?",
+      "answer": "Los requisitos para obtener un permiso de construcción incluyen la presentación de planos aprobados por el departamento de urbanismo y el pago de las tarifas correspondientes.",
+      "type": "normatividad"
+    },
+    {
+      "question": "¿Dónde puedo encontrar información sobre las normativas de zonificación en nuestra localidad?",
+      "answer": "La información sobre normativas de zonificación está disponible en el portal web del municipio o en la oficina de planificación urbana.",
+      "type": "normatividad"
+    },
+    {
+      "question": "¿Cuál es el límite de velocidad actual en las zonas escolares y cómo se aplica la vigilancia?",
+      "answer": "El límite de velocidad en las zonas escolares es de X km/h, y la vigilancia se realiza mediante cámaras y patrullas de tráfico.",
+      "type": "normatividad"
+    },
+    {
+      "question": "¿Cuáles son las regulaciones sobre el manejo de residuos sólidos y reciclaje en la ciudad?",
+      "answer": "Las regulaciones sobre manejo de residuos sólidos y reciclaje incluyen la separación obligatoria de materiales reciclables y la disposición adecuada de residuos peligrosos.",
+      "type": "normatividad"
+    },
+    {
+      "question": "¿Existe alguna restricción temporal para la apertura de negocios en días festivos?",
+      "answer": "Sí, existen restricciones temporales para la apertura de negocios en días festivos; se recomienda revisar el calendario de normativas para obtener detalles específicos.",
+      "type": "normatividad"
+    },
+    {
+      "question": "¿Cuáles son las últimas novedades en términos de proyectos de infraestructura en nuestra ciudad?",
+      "answer": "Las últimas novedades en proyectos de infraestructura incluyen la construcción de nuevas ciclovías y la renovación de parques públicos.",
+      "type": "novedades"
+    },
+    {
+      "question": "¿Qué eventos o actividades se han planificado para celebrar el próximo aniversario de la fundación de la alcaldía?",
+      "answer": "Para celebrar el próximo aniversario, se ha planificado un desfile cívico, conciertos y actividades familiares en el centro de la ciudad.",
+      "type": "novedades"
+    },
+    {
+      "question": "¿Cuáles son las nuevas medidas implementadas para fomentar la participación ciudadana en decisiones municipales?",
+      "answer": "Se han implementado nuevas herramientas en línea y se han organizado foros comunitarios para involucrar a los ciudadanos en la toma de decisiones.",
+      "type": "novedades"
+    },
+    {
+      "question": "¿Hemos adoptado recientemente algún programa de sostenibilidad o iniciativa verde?",
+      "answer": "Recientemente hemos adoptado un programa de sostenibilidad que promueve el uso de energías renovables y la reducción de residuos plásticos.",
+      "type": "novedades"
+    },
+    {
+      "question": "¿Cuáles son las últimas actualizaciones sobre el transporte público y posibles expansiones de rutas?",
+      "answer": "Las últimas actualizaciones en el transporte público incluyen la incorporación de autobuses eléctricos y la consideración de expansiones de rutas para mejorar la cobertura.",
+      "type": "novedades"
+    },
+    {
+      "question": "¿Cuál es el proceso para presentar una PQRD (Peticiones, Quejas, Reclamos o Sugerencias) ante la alcaldía?",
+      "answer": "Para presentar una PQRD, puedes completar un formulario en línea en nuestro sitio web o presentarla de forma presencial en la oficina de atención al ciudadano, detallando claramente la naturaleza de tu solicitud.",
+      "type": "PQRDS"
+    },
+    {
+      "question": "¿Cuál es el tiempo estimado de respuesta a una PQRD presentada por un ciudadano?",
+      "answer": "El tiempo de respuesta a una PQRD es de X días hábiles, y te mantendremos informado sobre el estado de tu solicitud.",
+      "type": "PQRDS"
+    },
+    {
+      "question": "¿Existen canales específicos para hacer seguimiento al estado de una PQRD presentada?",
+      "answer": "Sí, puedes hacer seguimiento al estado de tu PQRD a través de nuestro sistema en línea utilizando el número de radicado proporcionado al presentarla.",
+      "type": "PQRDS"
+    },
+    {
+      "question": "¿Se han implementado cambios recientes en el procedimiento de manejo de PQRDS para hacerlo más eficiente?",
+      "answer": "Recientemente hemos implementado un sistema de notificaciones para informar a los ciudadanos sobre el progreso de sus PQRDS y hemos simplificado el proceso de presentación.",
+      "type": "PQRDS"
+    },
+    {
+      "question": "¿Cuáles son las principales tendencias o patrones que se han identificado en las PQRDS recibidas en el último trimestre?",
+      "answer": "Entre las tendencias identificadas en las PQRDS, se ha observado un aumento en las solicitudes relacionadas con servicios públicos y mejoras en la infraestructura urbana.",
+      "type": "PQRDS"
     }
-  ]
+  ],
+  "library": []
 }
