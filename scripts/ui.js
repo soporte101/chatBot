@@ -19,7 +19,7 @@ const container_chatbox = document.querySelector(".hidden");
 const submitButton = document.querySelector(
   ".input-field.button input[type='button']"
 );
-//Funcion para obtener las preguntas
+/* //Funcion para obtener las preguntas
 const obtainQuestions = async () => {
   const { questions } = await getQuestions();
   return questions;
@@ -33,6 +33,7 @@ const obtainFilters = async () => {
 let questions = await obtainQuestions();
 let filters = await obtainFilters();
 console.log([filters, questions]);
+ */
 
 //Variables del formulario
 let userMessage = null; // Variable to store user's message
