@@ -30,10 +30,6 @@ const obtainFilters = async () => {
   return filters;
 };
 
-let questions = await obtainQuestions();
-let filters = await obtainFilters();
-console.log([filters, questions]);
-
 //Variables del formulario
 let userMessage = null; // Variable to store user's message
 let nameuser = JSON.parse(localStorage.getItem("data"))?.nombre || "User";
