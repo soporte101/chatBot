@@ -19,18 +19,20 @@ const container_chatbox = document.querySelector(".hidden");
 const submitButton = document.querySelector(
   ".input-field.button input[type='button']"
 );
-
-let questions = [];
-let filters = [];
-
-export const getData = () => {
-  getQuestions().then((res) => {
-    questions = res.questions;
-    filters = res.filters;
-    console.log([questions, filters]);
-    //Llama las funciones para pintar las tarjetas y las preguntas
-  });
+//Funcion para obtener las preguntas
+const obtainQuestions = async () => {
+  const { questions } = await getQuestions();
+  return questions;
 };
+//Funcion para obtener los filtros
+const obtainFilters = async () => {
+  const { filters } = await getQuestions();
+  return filters;
+};
+
+let questions = await obtainQuestions();
+let filters = await obtainFilters();
+console.log([filters, questions]);
 
 //Variables del formulario
 let userMessage = null; // Variable to store user's message
