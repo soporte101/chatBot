@@ -204,7 +204,6 @@ function getDatalocalStorage() {
 
 function ScreenMainChat() {
   getDatalocalStorage();
-
   chatBoxInput.style.visibility = "visible";
   if (chatBoxInput.style.visibility == "visible") {
     container_form.style.display = "none";

@@ -1,5 +1,6 @@
-import { getData } from "./ui.js";
+import { actionForm, handleClick } from "./ui.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  getData();
+  handleClick();
+  actionForm();
 });
