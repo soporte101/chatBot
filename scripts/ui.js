@@ -59,7 +59,11 @@ const normalize = (text) => {
 };
 
 export const actionForm = () => {
-  formUser.addEventListener("submit", function (event) {
+  const submitButton = document.querySelector(
+    ".input-field.button input[type='button']"
+  );
+
+  submitButton.addEventListener("click", function (event) {
     // Obtener valores del formulario
     const nameuser = document.getElementById("name-user").value;
     const lastname = document.getElementById("lastname").value;
@@ -80,7 +84,7 @@ export const actionForm = () => {
       //llamamos funcion para mostrar patanlla principal
       ScreenMainChat();
       // Limpiar el formulario
-      formUser.reset();
+      clearForm();
     }
 
     function validateForm() {
@@ -133,7 +137,14 @@ export const actionForm = () => {
     // }
   });
 };
-
+function clearForm() {
+  // Limpiar el formulario
+  document.getElementById("name-user").value = "";
+  document.getElementById("lastname").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("politicaCheckbox").checked = false;
+  document.getElementById("acuerdosCheckbox").checked = false;
+}
 function ScreenMainChat() {
   getDatalocalStorage(nameuser);
   chatBoxInput.style.visibility = "visible";
