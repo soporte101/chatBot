@@ -16,7 +16,7 @@ const sendChatBtn = document.querySelector(".chat-input span");
 const chatBoxInput = document.querySelector(".chat-input");
 const container_form = document.querySelector(".register-chat");
 const container_chatbox = document.querySelector(".hidden");
-const continuarBtn = document.querySelector(
+const submitButton = document.querySelector(
   ".input-field.button input[type='button']"
 );
 //Funcion para obtener las preguntas
@@ -57,9 +57,6 @@ const normalize = (text) => {
 };
 
 export const actionForm = () => {
-  const submitButton = document.querySelector(
-    ".input-field.button input[type='button']"
-  );
 
   submitButton.addEventListener("click", function (event) {
     // Obtener valores del formulario
@@ -70,8 +67,6 @@ export const actionForm = () => {
     const acuerdosCheckbox = document.getElementById("acuerdosCheckbox");
     const txtcheck1 = document.querySelector(".txt-check1");
     const txtcheck2 = document.querySelector(".txt-check2");
-
-    console.log(typeof nameuser);
 
     if (!validateForm()) {
       event.preventDefault();
@@ -207,7 +202,6 @@ export const handleClick = () => {
     document.body.classList.remove("show-chatbot")
   );
   chatbotToggler.addEventListener("click", () => {
-    console.log("click");
     document.body.classList.toggle("show-chatbot");
   });
 };

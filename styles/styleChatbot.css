@@ -2,6 +2,7 @@
 :root {
   --mainColor: blue;
   --secondColor: white;
+  --third-color: rgba(0, 0, 255, 0.685);
   --fontcolor: white;
 }
 * {
@@ -283,4 +284,24 @@ header h2 {
   font-size: 12px;
   margin-top: 5px;
   position: relative;
+}
+.header-main {
+  background-color: var(--third-color);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--fontcolor);
+}
+.container-questions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-around;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5%;
+}
+#item-question {
+  border: none;
+  padding: 10px;
+  background: red;
+  border-radius: 8px;
 }
