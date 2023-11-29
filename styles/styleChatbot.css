@@ -3,6 +3,8 @@
   --mainColor: blue;
   --secondColor: white;
   --third-color: rgba(0, 0, 255, 0.685);
+  --forth-color:#788bff;
+  --hover-color: #788affb7;
   --fontcolor: white;
 }
 * {
@@ -227,7 +229,7 @@ header h2 {
 }
 /* FORM STYLE */
 .form {
-  overflow-y: auto;
+  overflow: auto;
   padding: 30px 20px 100px;
 }
 .header-form h3 {
@@ -293,15 +295,105 @@ header h2 {
 }
 .container-questions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   justify-content: space-around;
-  align-items: center;
+  grid-auto-flow: dense;
+  align-items: stretch;
   gap: 12px;
-  margin-top: 5%;
+  margin-top: 3%;
 }
+
+
 #item-question {
   border: none;
   padding: 10px;
-  background: red;
+  background: var(--forth-color);
+  color: var(--fontcolor);
+  transition: transform .2s;
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
   border-radius: 8px;
+}
+
+#item-question:hover {
+  background: var(--hover-color);
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+  transform: scale(.95);
+}
+#btn-chatbot {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  flex-grow: 1;
+  width: 100%;
+}
+.questionsbyType{
+ visibility: hidden;
+ height: 100%;
+}
+.questionsbyType h5 {
+  margin-top: 10px;
+  font-weight: 300;
+}
+.questionsbyType #title-typeQuestion {
+  font-size: 22px;
+  line-height: 0.9;
+}
+.form.questionsbyType {
+  overflow-y: scroll; /* Agrega barras de desplazamiento vertical */
+}
+
+.form.questionsbyType::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form.questionsbyType::-webkit-scrollbar-track {
+  background: var(--secondColor); 
+  border-radius: 25px; 
+}
+
+.form.questionsbyType::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 25px; 
+ 
+}
+
+.questionsbyType p {
+  margin-top: 10px;
+  font-size: 12px;
+   text-align: justify;
+}
+#txt-question{
+  margin-top: 10px;
+  height: 75px;
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 10px;
+  outline: none;
+  resize: none;
+  max-height: 180px;
+  padding: 15px 15px 15px 10px;
+  font-size: 0.8rem;
+  background-color:#dddddd3d;
+}
+.question-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.question-input button {
+    border: none;
+  padding: 10px;
+  background: var(--forth-color);
+  color: var(--fontcolor);
+  transition: transform .2s;
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+  border-radius: 8px;
+}
+.question-input button:hover {
+  background: var(--hover-color);
+  box-shadow: 0 2px 5px 0 rgb(213 217 217 / 50%);
+  transform: scale(.95);
+}
+.question-types{
+  display: none
 }
