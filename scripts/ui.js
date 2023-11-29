@@ -19,6 +19,10 @@ const container_chatbox = document.querySelector(".hidden");
 const submitButton = document.querySelector(
   ".input-field.button input[type='button']"
 );
+const containerQuestions = document.querySelector(".container-questions");
+const questionsbyType = document.querySelector(".questionsbyType");
+const questiontypes = document.querySelector(".question-types");
+const btnAsistente = document.querySelector("#item-question");
 //Funcion para obtener las preguntas
 const obtainQuestions = async () => {
   const { questions } = await getQuestions();
@@ -56,8 +60,8 @@ const normalize = (text) => {
     .replace(/[^\w\s]/gi, "");
 };
 
+//Formulario de registro
 export const actionForm = () => {
-
   submitButton.addEventListener("click", function (event) {
     // Obtener valores del formulario
     const nameuser = document.getElementById("name-user").value;
@@ -75,7 +79,7 @@ export const actionForm = () => {
       saveEnLocalStorage(nameuser + " " + lastname, email);
       event.preventDefault();
       //llamamos funcion para mostrar patanlla principal
-      ScreenMainChat();
+      TypescreenQuestions();
       // Limpiar el formulario
       clearForm();
     }
@@ -123,11 +127,6 @@ export const actionForm = () => {
 
       return isValid;
     }
-
-    // function isValidEmail(email) {
-    //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //   return emailRegex.test(email);
-    // }
   });
 };
 function clearForm() {
@@ -138,6 +137,8 @@ function clearForm() {
   document.getElementById("politicaCheckbox").checked = false;
   document.getElementById("acuerdosCheckbox").checked = false;
 }
+
+//Pantalla del chabot
 function ScreenMainChat() {
   getDatalocalStorage(nameuser);
   chatBoxInput.style.visibility = "visible";
@@ -153,7 +154,54 @@ function ScreenMainChat() {
     }
   }
 }
+// Pantalla de preguntas por tipo
+async function TypescreenQuestions() {
+  questiontypes.style.display = "block";
+  container_form.style.display = "none";
+  const typeQuestion = await obtainFilters();
+  const mensaje = document.querySelector("#welcome-message");
+  console.log(mensaje);
+  mensaje.innerHTML +=
+    "!Hola, " +
+    `${nameuser}` +
+    " !😄 Explora información importante seleccionando tu módulo de interés. Encuentra respuestas a preguntas frecuentes o déjanos tu propia pregunta. ¿Quieres interactuar con nuestro asistente virtual? <br> Estamos aqui para ayudarte. ¡Bienvenido!";
+  typeQuestion.forEach((Tquestion) => {
+    const button = document.createElement("button");
+    button.id = "item-question";
+    button.textContent = Tquestion;
 
+    button.addEventListener("click", () => {
+      // Acciones cuando se hace clic en el botón
+      questionsbyType.style.visibility = "visible";
+      questiontypes.style.display = "none";
+      screenQuestions(Tquestion);
+    });
+    containerQuestions.appendChild(button);
+  });
+}
+// Pantalla de seccion de preguntas por el tipo de pregunta  escogida. 
+async function screenQuestions(typeQuestion) {
+  console.log(typeQuestion);
+  const containerQuestions = document.querySelector(".question-recent");
+  const mensaje = document.querySelector("#title-typeQuestion");
+  mensaje.innerHTML +=
+    `${nameuser}` + ", Bienvenido al modulo de " + `${typeQuestion}`;
+
+  const question = await obtainQuestions();
+  const filterQuestionquestion = question.filter(
+    (question) => question.type == typeQuestion
+  );
+  filterQuestionquestion.forEach((question) => {
+    const button = document.createElement("button");
+    button.id = "item-question";
+    button.textContent = question.question;
+    containerQuestions.appendChild(button);
+  });
+}
+//Evento para llevar a la screen del chatbot
+btnAsistente.addEventListener("click", () => {
+  ScreenMainChat();
+});
 //Evento clic del boton del chat
 const handleChat = () => {
   userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
@@ -205,7 +253,7 @@ export const handleClick = () => {
     document.body.classList.toggle("show-chatbot");
   });
 };
-
+const backButton = document.getElementById("btnBack");
 function generateResponse(userMessage) {
   // Simula una respuesta basada en el mensaje del usuario
   const responses = {
@@ -224,3 +272,6 @@ function generateResponse(userMessage) {
     "Lo siento, no entendí eso. ¿Puedes reformular? o escribe a email@dominio.com"
   );
 }
+
+
+//Historial Pantallas 
