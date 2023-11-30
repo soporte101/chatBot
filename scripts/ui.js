@@ -23,6 +23,8 @@ const containerQuestions = document.querySelector(".container-questions");
 const questionsbyType = document.querySelector(".questionsbyType");
 const questiontypes = document.querySelector(".question-types");
 const btnAsistente = document.querySelector("#item-question");
+const containtMain = document.querySelector(".containt-main");
+
 //Funcion para obtener las preguntas
 const obtainQuestions = async () => {
   const { questions } = await getQuestions();
@@ -39,6 +41,13 @@ let userMessage = null; // Variable to store user's message
 let nameuser = JSON.parse(localStorage.getItem("data"))?.nombre || "User";
 
 const createChatLi = (message, className) => {
+  const messages = chatbox.querySelectorAll(".incoming");
+  //identifica si hay 2 mensajes seguido y agrega margin
+  messages.forEach((message, index, array) => {
+    if (index > 0 && array[index - 1].classList.contains("incoming")) {
+      message.style.marginBottom = "10px"; // Ajusta según sea necesario
+    }
+  });
   // Create a chat <li> element with passed message and className
   const chatLi = document.createElement("li");
   chatLi.classList.add("chat", `${className}`);
@@ -48,6 +57,29 @@ const createChatLi = (message, className) => {
       : `<span><i class='bx bx-bot'></i></span><p></p>`;
   chatLi.innerHTML = chatContent;
   chatLi.querySelector("p").textContent = message;
+
+  // Agregar dos botones al final del mensaje
+  if (className === "incoming" && message === "Deseas hacer otra pregunta ?") {
+    const button1 = document.createElement("button");
+    button1.textContent = "Si";
+    button1.id = "item-question";
+    button1.style.margin = "10px";
+    button1.addEventListener("click", () => {
+      container_chatbox.classList.add("hidden");
+      containtMain.classList.remove("hidden-element");
+    });
+    const button2 = document.createElement("button");
+    button2.id = "item-question";
+    button2.textContent = "Menu Principal";
+    button2.addEventListener("click", () => {
+      container_chatbox.classList.add("hidden");
+      questiontypes.style.display = "block";
+    });
+    chatLi.querySelector("p").appendChild(document.createElement("br"));
+    chatLi.querySelector("p").appendChild(button1);
+    chatLi.querySelector("p").appendChild(button2);
+  }
+
   return chatLi; // return chat <li> element
 };
 
@@ -160,7 +192,6 @@ async function TypescreenQuestions() {
   container_form.style.display = "none";
   const typeQuestion = await obtainFilters();
   const mensaje = document.querySelector("#welcome-message");
-  console.log(mensaje);
   mensaje.innerHTML +=
     "!Hola, " +
     `${nameuser}` +
@@ -175,13 +206,14 @@ async function TypescreenQuestions() {
       questionsbyType.style.visibility = "visible";
       questiontypes.style.display = "none";
       screenQuestions(Tquestion);
+      console.log("hola");
     });
     containerQuestions.appendChild(button);
   });
 }
-// Pantalla de seccion de preguntas por el tipo de pregunta  escogida. 
+// Pantalla de seccion de preguntas por el tipo de pregunta  escogida.
 async function screenQuestions(typeQuestion) {
-  console.log(typeQuestion);
+  containtMain.classList.remove("hidden-element");
   const containerQuestions = document.querySelector(".question-recent");
   const mensaje = document.querySelector("#title-typeQuestion");
   mensaje.innerHTML +=
@@ -195,8 +227,27 @@ async function screenQuestions(typeQuestion) {
     const button = document.createElement("button");
     button.id = "item-question";
     button.textContent = question.question;
+
+    button.addEventListener("click", () => {
+      createChatAnswer(question.question, question.answer);
+      containtMain.classList.add("hidden-element");
+    });
     containerQuestions.appendChild(button);
   });
+}
+
+function createChatAnswer(question, answer) {
+  container_chatbox.classList.remove("hidden");
+  const chatList = document.querySelector(".chatbox");
+  const ultimoMensaje = chatList.lastElementChild;
+  if (ultimoMensaje.classList.contains("incoming")) {
+    const mensaje = ultimoMensaje.querySelector("p");
+    mensaje.innerHTML +=
+      "Hola! " + `${nameuser}` + "👋<br>Hiciste la siguiente pregunta";
+  }
+  chatbox.appendChild(createChatLi(question, "outgoing"));
+  chatbox.appendChild(createChatLi(answer, "incoming"));
+  chatbox.appendChild(createChatLi("Deseas hacer otra pregunta ?", "incoming"));
 }
 //Evento para llevar a la screen del chatbot
 btnAsistente.addEventListener("click", () => {
@@ -253,7 +304,7 @@ export const handleClick = () => {
     document.body.classList.toggle("show-chatbot");
   });
 };
-const backButton = document.getElementById("btnBack");
+
 function generateResponse(userMessage) {
   // Simula una respuesta basada en el mensaje del usuario
   const responses = {
@@ -272,6 +323,3 @@ function generateResponse(userMessage) {
     "Lo siento, no entendí eso. ¿Puedes reformular? o escribe a email@dominio.com"
   );
 }
-
-
-//Historial Pantallas 
