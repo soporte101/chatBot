@@ -397,3 +397,6 @@ header h2 {
 .question-types{
   display: none
 }
+.hidden-element {
+  display: none;
+}
