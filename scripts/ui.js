@@ -215,7 +215,9 @@ async function TypescreenQuestions() {
 async function screenQuestions(typeQuestion) {
   containtMain.classList.remove("hidden-element");
   const containerQuestions = document.querySelector(".question-recent");
+  containerQuestions.innerHTML = "";
   const mensaje = document.querySelector("#title-typeQuestion");
+  mensaje.innerHTML = "";
   mensaje.innerHTML +=
     `${nameuser}` + ", Bienvenido al modulo de " + `${typeQuestion}`;
 
@@ -227,7 +229,6 @@ async function screenQuestions(typeQuestion) {
     const button = document.createElement("button");
     button.id = "item-question";
     button.textContent = question.question;
-
     button.addEventListener("click", () => {
       createChatAnswer(question.question, question.answer);
       containtMain.classList.add("hidden-element");
