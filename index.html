@@ -6,6 +6,7 @@
   <title>chatbot</title>
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="./styles/styleChatbot.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -16,8 +17,7 @@
     </button>
     <div class="chatbot">
       <header>
-        <!--         <button id="btnBack">Atrás</button>
- -->
+        <button id="btnBack"><i class='bx bx-log-out-circle'></i></button>
         <h2>Chatbot</h2>
         <span class="close-btn material-symbols-outlined"><i class="bx bx-x"></i></span>
       </header>
@@ -81,25 +81,25 @@
 
         </div>
         <div id="btn-chatbot">
-          <button id="item-question">Interactuar con el asistente</button>
+          <button id="item-question">Interactuar con el asistente <i class="bx bx-bot"></i></button>
         </div>
       </section>
       <!-- END MAIN SCREEN QUESTIONS-->
 
       <section class="form questionsbyType">
         <div class="containt-main">
-        <div class="header-questions ">
-          <h4 id="title-typeQuestion">
+          <div class="header-questions ">
+            <h4 id="title-typeQuestion">
 
-          </h4>
-        </div>
-        <div >
-          <h5>Preguntas Frecuentes</h5>
-        </div>
-        <div class="container-questions question-recent ">
-        </div>
-        <div>
-         
+            </h4>
+          </div>
+          <div>
+            <h5>Preguntas Frecuentes</h5>
+          </div>
+          <div class="container-questions question-recent ">
+          </div>
+          <div>
+
             <p>¿No encontraste la informacion que necesitas?
               no te preocupes. Puedes Solicitarla en el espacio
               proporcionado a continuación. Tu solicitud será enviada
@@ -129,4 +129,5 @@
   <!-- <script src="Chatbot.js"></script> -->
   <script src="scripts/axios.min.js"></script>
   <script src="scripts/main.js" type="module"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>

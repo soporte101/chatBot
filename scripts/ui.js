@@ -11,6 +11,8 @@ const formUser = document.getElementById("register-user");
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const closeBtn = document.querySelector(".close-btn");
 const chatbox = document.querySelector(".chatbox");
+const chatbot = document.querySelector(".chatbot");
+
 const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
 const chatBoxInput = document.querySelector(".chat-input");
@@ -24,7 +26,31 @@ const questionsbyType = document.querySelector(".questionsbyType");
 const questiontypes = document.querySelector(".question-types");
 const btnAsistente = document.querySelector("#item-question");
 const containtMain = document.querySelector(".containt-main");
-
+const btnsendQuestion = document.getElementById("btn-sendQuestion");
+const btnBack = document.getElementById("btnBack");
+btnsendQuestion.addEventListener("click", () => {
+  Toastify({
+    text: "Pregunta enviada con Exito",
+    duration: 3000,
+    //newWindow: true,
+    selector: questionsbyType,
+    close: true,
+    gravity: "top", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "linear-gradient(to right,  blue,#788bff,)",
+    },
+    onClick: function () {
+      console.log("hola");
+    }, // Callback after click
+    callback: function () {
+      //questionsbyType.style.visibility = "visible";
+      containtMain.classList.add("hidden-element");
+      questiontypes.style.display = "block";
+    },
+  }).showToast();
+});
 //Funcion para obtener las preguntas
 const obtainQuestions = async () => {
   const { questions } = await getQuestions();
@@ -175,19 +201,28 @@ function clearForm() {
 
 //Pantalla del chabot
 function ScreenMainChat() {
+  btnBack.style.display = "block"
   getDatalocalStorage(nameuser);
   chatBoxInput.style.visibility = "visible";
   if (chatBoxInput.style.visibility == "visible") {
     container_form.style.display = "none";
     container_chatbox.classList.remove("hidden");
     const chatList = document.querySelector(".chatbox");
-    chatList.innerHTML = ""
-   chatbox.appendChild(
-    createChatLi(
-      "Hola! " + `${nameuser}` + "👋 como podemos ayudarte Hoy ?.",
-      "incoming"
-    ));
+    chatList.innerHTML = "";
+    chatbox.appendChild(
+      createChatLi(
+        "Hola! " + `${nameuser}` + "👋 como podemos ayudarte Hoy ?.",
+        "incoming"
+      )
+    );
   }
+
+  btnBack.addEventListener("click", ()=> {
+      container_chatbox.classList.add("hidden");
+      chatBoxInput.style.visibility = "hidden";
+      btnBack.style.display = "";
+
+  })
 }
 // Pantalla de preguntas por tipo
 async function TypescreenQuestions() {
@@ -212,6 +247,7 @@ async function TypescreenQuestions() {
       console.log("hola");
     });
     containerQuestions.appendChild(button);
+    
   });
 }
 // Pantalla de seccion de preguntas por el tipo de pregunta  escogida.
