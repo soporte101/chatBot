@@ -59,7 +59,10 @@ const createChatLi = (message, className) => {
   chatLi.querySelector("p").textContent = message;
 
   // Agregar dos botones al final del mensaje
-  if (className === "incoming" && message === "Deseas hacer otra pregunta ?") {
+  if (
+    className === "incoming" &&
+    message === "Deseas hacer otra pregunta sobre este modulo ?"
+  ) {
     const button1 = document.createElement("button");
     button1.textContent = "Si";
     button1.id = "item-question";
@@ -178,12 +181,12 @@ function ScreenMainChat() {
     container_form.style.display = "none";
     container_chatbox.classList.remove("hidden");
     const chatList = document.querySelector(".chatbox");
-    const ultimoMensaje = chatList.lastElementChild;
-    if (ultimoMensaje.classList.contains("incoming")) {
-      const mensaje = ultimoMensaje.querySelector("p");
-      mensaje.innerHTML +=
-        "Hola! " + `${nameuser}` + "👋<br>Como podemos ayudarte hoy?";
-    }
+    chatList.innerHTML = ""
+   chatbox.appendChild(
+    createChatLi(
+      "Hola! " + `${nameuser}` + "👋 como podemos ayudarte Hoy ?.",
+      "incoming"
+    ));
   }
 }
 // Pantalla de preguntas por tipo
@@ -238,17 +241,19 @@ async function screenQuestions(typeQuestion) {
 }
 
 function createChatAnswer(question, answer) {
+  chatbox.innerHTML = "";
   container_chatbox.classList.remove("hidden");
-  const chatList = document.querySelector(".chatbox");
-  const ultimoMensaje = chatList.lastElementChild;
-  if (ultimoMensaje.classList.contains("incoming")) {
-    const mensaje = ultimoMensaje.querySelector("p");
-    mensaje.innerHTML +=
-      "Hola! " + `${nameuser}` + "👋<br>Hiciste la siguiente pregunta";
-  }
+  chatbox.appendChild(
+    createChatLi(
+      "Hola! " + `${nameuser}` + "👋 Hiciste la siguiente pregunta: ",
+      "incoming"
+    )
+  );
   chatbox.appendChild(createChatLi(question, "outgoing"));
   chatbox.appendChild(createChatLi(answer, "incoming"));
-  chatbox.appendChild(createChatLi("Deseas hacer otra pregunta ?", "incoming"));
+  chatbox.appendChild(
+    createChatLi("Deseas hacer otra pregunta sobre este modulo ?", "incoming")
+  );
 }
 //Evento para llevar a la screen del chatbot
 btnAsistente.addEventListener("click", () => {
