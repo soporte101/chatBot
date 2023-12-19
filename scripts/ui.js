@@ -3,10 +3,11 @@ import {
   getQuestions,
   saveEnLocalStorage,
   getDatalocalStorage,
+  getDataNews,
+  getDataModule,
 } from "./services.js";
 
 //Formulario pirnipal chatbot
-
 const formUser = document.getElementById("register-user");
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const closeBtn = document.querySelector(".close-btn");
@@ -28,6 +29,12 @@ const btnAsistente = document.querySelector("#item-question");
 const containtMain = document.querySelector(".containt-main");
 const btnsendQuestion = document.getElementById("btn-sendQuestion");
 const btnBack = document.getElementById("btnBack");
+const questionforbot = document.querySelector(".questionforbot");
+const optionsQuestion2 = document.querySelector(".optionsQuestion2");
+// Obtén todos los elementos con la clase "item-question"
+const btnOptions = document.querySelectorAll(".menu-question");
+
+//Toast
 btnsendQuestion.addEventListener("click", () => {
   Toastify({
     text: "Pregunta enviada con Exito",
@@ -51,10 +58,11 @@ btnsendQuestion.addEventListener("click", () => {
     },
   }).showToast();
 });
+
 //Funcion para obtener las preguntas
 const obtainQuestions = async () => {
-  const { questions } = await getQuestions();
-  return questions;
+  const { results } = await getQuestions();
+  return results;
 };
 //Funcion para obtener los filtros
 const obtainFilters = async () => {
@@ -65,7 +73,7 @@ const obtainFilters = async () => {
 //Variables del formulario
 let userMessage = null; // Variable to store user's message
 let nameuser = JSON.parse(localStorage.getItem("data"))?.nombre || "User";
-
+let nameModule = "";
 const createChatLi = (message, className) => {
   const messages = chatbox.querySelectorAll(".incoming");
   //identifica si hay 2 mensajes seguido y agrega margin
@@ -123,72 +131,77 @@ const normalize = (text) => {
 
 //Formulario de registro
 export const actionForm = () => {
-  submitButton.addEventListener("click", function (event) {
-    // Obtener valores del formulario
-    const nameuser = document.getElementById("name-user").value;
-    const lastname = document.getElementById("lastname").value;
-    const email = document.getElementById("email").value;
-    const politicaCheckbox = document.getElementById("politicaCheckbox");
-    const acuerdosCheckbox = document.getElementById("acuerdosCheckbox");
-    const txtcheck1 = document.querySelector(".txt-check1");
-    const txtcheck2 = document.querySelector(".txt-check2");
+  console.log(getDatalocalStorage());
 
-    if (!validateForm()) {
-      event.preventDefault();
-    } else {
-      // Guardar datos en el localStorage
-      saveEnLocalStorage(nameuser + " " + lastname, email);
-      event.preventDefault();
-      //llamamos funcion para mostrar patanlla principal
-      TypescreenQuestions();
-      // Limpiar el formulario
-      clearForm();
-    }
-
-    function validateForm() {
-      let isValid = true;
-      const nameError = document.getElementById("name-error");
-      const lastnameError = document.getElementById("lastname-error");
-      const emailError = document.getElementById("email-error");
-
-      // Validación del nombre
-      if (validateName(nameuser)) {
-        nameError.textContent = "";
+  if (getDatalocalStorage()) {
+    TypescreenQuestions();
+  } else {
+    submitButton.addEventListener("click", function (event) {
+      // Obtener valores del formulario
+      const nameuser = document.getElementById("name-user").value;
+      const lastname = document.getElementById("lastname").value;
+      const email = document.getElementById("email").value;
+      const politicaCheckbox = document.getElementById("politicaCheckbox");
+      const acuerdosCheckbox = document.getElementById("acuerdosCheckbox");
+      const txtcheck1 = document.querySelector(".txt-check1");
+      const txtcheck2 = document.querySelector(".txt-check2");
+      if (!validateForm()) {
+        event.preventDefault();
       } else {
-        nameError.textContent = "*El nombre es requerido";
-        isValid = false;
+        // Guardar datos en el localStorage
+        saveEnLocalStorage(nameuser + " " + lastname, email);
+        event.preventDefault();
+        //llamamos funcion para mostrar patanlla principal
+        TypescreenQuestions();
+        // Limpiar el formulario
+        clearForm();
       }
 
-      // Validación del apellido
-      if (!validateName(lastname)) {
-        lastnameError.textContent = "*El apellido es requerido";
-        isValid = false;
-      } else {
-        lastnameError.textContent = "";
-      }
-      // Validación del correo electrónico
-      if (!validateName(email)) {
-        emailError.textContent = "*El correo electrónico es requerido";
-        isValid = false;
-      } else if (!validateEmail(email)) {
-        emailError.textContent = "*Ingrese un correo electrónico válido";
-        isValid = false;
-      } else {
-        emailError.textContent = "";
-      }
-      if (!politicaCheckbox.checked || !acuerdosCheckbox.checked) {
-        txtcheck1.style.color = "red";
-        txtcheck2.style.color = "red";
+      function validateForm() {
+        let isValid = true;
+        const nameError = document.getElementById("name-error");
+        const lastnameError = document.getElementById("lastname-error");
+        const emailError = document.getElementById("email-error");
 
-        isValid = false;
-      } else {
-        txtcheck1.style.color = "";
-        txtcheck2.style.color = "";
-      }
+        // Validación del nombre
+        if (validateName(nameuser)) {
+          nameError.textContent = "";
+        } else {
+          nameError.textContent = "*El nombre es requerido";
+          isValid = false;
+        }
 
-      return isValid;
-    }
-  });
+        // Validación del apellido
+        if (!validateName(lastname)) {
+          lastnameError.textContent = "*El apellido es requerido";
+          isValid = false;
+        } else {
+          lastnameError.textContent = "";
+        }
+        // Validación del correo electrónico
+        if (!validateName(email)) {
+          emailError.textContent = "*El correo electrónico es requerido";
+          isValid = false;
+        } else if (!validateEmail(email)) {
+          emailError.textContent = "*Ingrese un correo electrónico válido";
+          isValid = false;
+        } else {
+          emailError.textContent = "";
+        }
+        if (!politicaCheckbox.checked || !acuerdosCheckbox.checked) {
+          txtcheck1.style.color = "red";
+          txtcheck2.style.color = "red";
+
+          isValid = false;
+        } else {
+          txtcheck1.style.color = "";
+          txtcheck2.style.color = "";
+        }
+
+        return isValid;
+      }
+    });
+  }
 };
 function clearForm() {
   // Limpiar el formulario
@@ -200,8 +213,8 @@ function clearForm() {
 }
 
 //Pantalla del chabot
-function ScreenMainChat() {
-  btnBack.style.display = "block"
+function ScreenMainChat(NameModule) {
+  btnBack.style.display = "block";
   getDatalocalStorage(nameuser);
   chatBoxInput.style.visibility = "visible";
   if (chatBoxInput.style.visibility == "visible") {
@@ -211,29 +224,36 @@ function ScreenMainChat() {
     chatList.innerHTML = "";
     chatbox.appendChild(
       createChatLi(
-        "Hola! " + `${nameuser}` + "👋 como podemos ayudarte Hoy ?.",
+        "Hola! " +
+          `${nameuser}` +
+          `👋 Dime que deseas buscar acerca de ${nameModule} ?. Te recomendamos buscar palabras claves.`,
         "incoming"
       )
     );
   }
 
-  btnBack.addEventListener("click", ()=> {
-      container_chatbox.classList.add("hidden");
-      chatBoxInput.style.visibility = "hidden";
-      btnBack.style.display = "";
-
-  })
+  btnBack.addEventListener("click", () => {
+    container_chatbox.classList.add("hidden");
+    chatBoxInput.style.visibility = "hidden";
+    btnBack.style.display = "";
+  });
 }
+
 // Pantalla de preguntas por tipo
 async function TypescreenQuestions() {
   questiontypes.style.display = "block";
   container_form.style.display = "none";
-  const typeQuestion = await obtainFilters();
+  //loading
+  /*   const loadingElement = document.createElement("div");
+  loadingElement.innerText = "Cargando..."; */
+  showLoadingScreen(containerQuestions);
   const mensaje = document.querySelector("#welcome-message");
   mensaje.innerHTML +=
     "!Hola, " +
     `${nameuser}` +
     " !😄 Explora información importante seleccionando tu módulo de interés. Encuentra respuestas a preguntas frecuentes o déjanos tu propia pregunta. ¿Quieres interactuar con nuestro asistente virtual? <br> Estamos aqui para ayudarte. ¡Bienvenido!";
+
+  const typeQuestion = await obtainFilters();
   typeQuestion.forEach((Tquestion) => {
     const button = document.createElement("button");
     button.id = "item-question";
@@ -241,14 +261,13 @@ async function TypescreenQuestions() {
 
     button.addEventListener("click", () => {
       // Acciones cuando se hace clic en el botón
-      questionsbyType.style.visibility = "visible";
+      questionsbyType.style.display = "block";
       questiontypes.style.display = "none";
       screenQuestions(Tquestion);
-      console.log("hola");
     });
     containerQuestions.appendChild(button);
-    
   });
+  hideLoadingScreen();
 }
 // Pantalla de seccion de preguntas por el tipo de pregunta  escogida.
 async function screenQuestions(typeQuestion) {
@@ -259,21 +278,22 @@ async function screenQuestions(typeQuestion) {
   mensaje.innerHTML = "";
   mensaje.innerHTML +=
     `${nameuser}` + ", Bienvenido al modulo de " + `${typeQuestion}`;
-
+  showLoadingScreen(containerQuestions);
   const question = await obtainQuestions();
   const filterQuestionquestion = question.filter(
-    (question) => question.type == typeQuestion
+    (question) => question.rtwo == typeQuestion
   );
   filterQuestionquestion.forEach((question) => {
     const button = document.createElement("button");
     button.id = "item-question";
-    button.textContent = question.question;
+    button.textContent = question.OData__x006e_qf7;
     button.addEventListener("click", () => {
-      createChatAnswer(question.question, question.answer);
+      createChatAnswer(question.OData__x006e_qf7, question.f68h);
       containtMain.classList.add("hidden-element");
     });
     containerQuestions.appendChild(button);
   });
+  hideLoadingScreen();
 }
 
 function createChatAnswer(question, answer) {
@@ -291,36 +311,79 @@ function createChatAnswer(question, answer) {
     createChatLi("Deseas hacer otra pregunta sobre este modulo ?", "incoming")
   );
 }
+
 //Evento para llevar a la screen del chatbot
 btnAsistente.addEventListener("click", () => {
-  ScreenMainChat();
+  const mensaje = document.querySelector("#title-typeBot");
+  mensaje.innerHTML = "";
+  mensaje.innerHTML +=
+    `${nameuser}` + ", estas son las opciones que te puedo ofrecer: ";
+
+  questiontypes.style.display = "none";
+  questionforbot.style.display = "block";
+  questionsbyType.style.display = "none";
+
+  // btn options types questions
+  btnOptions.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Lógica o acción específica para cada botón
+      const buttonText = this.textContent;
+      console.log("clic");
+      if (button.classList.contains("volver-menu")) {
+        // Lógica específica para el botón "VOLVER AL MENU"
+        console.log("Hiciste clic en: VOLVER AL MENU");
+        questiontypes.style.display = "block";
+        questionforbot.style.display = "none";
+        /*         container_chatbox.classList.add("hidden");
+        chatBoxInput.style.visibility = "hidden"; */
+        // Agrega aquí la lógica específica que deseas para este botón
+      } else {
+        // Lógica para los otros botones
+        console.log(`Hiciste clic en: ${buttonText}`);
+        nameModule = buttonText;
+        ScreenMainChat(buttonText);
+      }
+    });
+  });
 });
+
 //Evento clic del boton del chat
-const handleChat = () => {
+const handleChat = async () => {
   userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
   if (!userMessage) return;
-
   // Clear the input textarea and set its height to default
   chatInput.value = "";
   chatInput.style.height = `${chatInput.scrollHeight}px`;
-
   // Append the user's message to the chatbox
   chatbox.appendChild(createChatLi(userMessage, "outgoing"));
   chatbox.scrollTo(0, chatbox.scrollHeight);
 
-  setTimeout(() => {
-    // Display "Thinking..." message while waiting for the response
-    const incomingChatLi = createChatLi("Thinking...", "incoming");
-    chatbox.appendChild(incomingChatLi);
+  // Simulate the response
+  const botResponse = await generateResponse(userMessage);
+  // Mostrar mensaje inicial antes de los resultados
+  const initialMessage = "Estos fueron los resultados que encontré:";
+  const initialMessageLi = createChatLi(initialMessage, "incoming");
+  if (Array.isArray(botResponse)) {
+    chatbox.appendChild(initialMessageLi);
+    botResponse.forEach(async (botResponse) => {
+      const incomingChatLi = createChatLi("Thinking...", "incoming");
+      chatbox.appendChild(incomingChatLi);
+      chatbox.scrollTo(0, chatbox.scrollHeight);
+      const titleLink = document.createElement("a");
+      titleLink.href = botResponse.metadataUri; // Asigna la URL del enlace
+      titleLink.target = "_blank";
+      titleLink.textContent = "👉 " + botResponse.title;
+      // Elimina el contenido de <p> y agrega el enlace <a>
+      const paragraphElement = incomingChatLi.querySelector("p");
+      paragraphElement.innerHTML = ""; // Limpiar el contenido actual
+      paragraphElement.appendChild(titleLink);
+      chatbox.scrollTo(0, chatbox.scrollHeight);
+    });
+  } else {
+    console.log(botResponse);
+    chatbox.appendChild(createChatLi(botResponse, "incoming"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
-
-    // Simulate the response
-    const botResponse = generateResponse(userMessage);
-    incomingChatLi.querySelector("p").textContent = botResponse;
-
-    // Scroll to the bottom after receiving the response
-    chatbox.scrollTo(0, chatbox.scrollHeight);
-  }, 600);
+  }
 };
 
 export const handleClick = () => {
@@ -328,16 +391,14 @@ export const handleClick = () => {
     // Adjust the height of the input textarea based on its content
     chatInput.style.height = `${chatInput.scrollHeight}px`;
   });
-
   chatInput.addEventListener("keydown", (e) => {
     // If Enter key is pressed without Shift key and the window
     // width is greater than 800px, handle the chat
-    if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+    if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 400) {
       e.preventDefault();
       handleChat();
     }
   });
-
   sendChatBtn.addEventListener("click", handleChat);
   closeBtn.addEventListener("click", () =>
     document.body.classList.remove("show-chatbot")
@@ -347,21 +408,34 @@ export const handleClick = () => {
   });
 };
 
-function generateResponse(userMessage) {
-  // Simula una respuesta basada en el mensaje del usuario
-  const responses = {
-    [normalize("Hola")]: "¡Hola! ¿En qué puedo ayudarte?",
-    [normalize("¿Cómo estás?")]: "Estoy bien, gracias por preguntar.",
-    [normalize("Adiós")]: "¡Hasta luego! Si tienes más preguntas, estaré aquí.",
-    [normalize("Bien")]:
-      "¡Me alegra que estes bien, cuentame cual es tu pregunta ?",
-    [normalize("ok")]: "Espero haya sido de utilidad",
+// Funcion para generar respuesata en el chat
+async function generateResponse(userMessage) {
+  let results = "";
+  if (nameModule == "NOTICIAS Y ACTUALIZACIONES") {
+    results = await getDataNews(normalize(userMessage));
+  }
+  if (nameModule == "TRÁMITES Y SERVICIOS") {
+    results = await getDataModule(normalize(userMessage));
+  }
+  if (results.length > 0) {
+    return results;
+  } else {
+    return "Lo siento, no tenemos resultados para lo consultado, puedes realizar otra pregunta.";
+  }
+}
 
-    // Agrega más respuestas predefinidas según sea necesario
-  };
-
-  return (
-    responses[normalize(userMessage)] ||
-    "Lo siento, no entendí eso. ¿Puedes reformular? o escribe a email@dominio.com"
-  );
+//Function por Loading screen
+function showLoadingScreen(containerShow) {
+  //Container show es donde se mostrara el spinner de carga
+  const loadingElement = document.createElement("div");
+  loadingElement.id = "loading-screen";
+  //loadingElement.textContent = "Cargando...";
+  containerShow.appendChild(loadingElement);
+}
+function hideLoadingScreen() {
+  // Lógica para ocultar la pantalla de carga
+  const loadingElement = document.getElementById("loading-screen");
+  if (loadingElement) {
+    loadingElement.parentNode.removeChild(loadingElement);
+  }
 }
