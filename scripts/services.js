@@ -13,12 +13,22 @@ const headers = {
   Accept: "application/json;odata=verbose",
   "Content-Type": "application/json;odata=verbose",
 };
-
+export const getNameAlcaldia = async () => {
+  try {
+    const response = await axios.get(
+      `http://192.168.20.219:22470/_api/web/title`,
+      { headers }
+    );
+    return response.data.d.Title;
+  } catch (error) {
+    console.log(error);
+  }
+};
+getNameAlcaldia();
 export const getQuestions = async () => {
   try {
     const { data } = await axios.get(url, { headers });
     const { results } = data.d;
-    console.log(results);
     let filters = [];
     results.forEach((element) => {
       if (!filters.includes(element.rtwo)) {
@@ -41,6 +51,7 @@ export function saveEnLocalStorage(nombre, email) {
     nombre: nombre,
     email: email,
   };
+
   // Guardar el objeto en el localStorage
   localStorage.setItem("data", JSON.stringify(savedData));
 }
@@ -52,12 +63,14 @@ export function getDatalocalStorage(nameuser) {
     const parsedData = JSON.parse(savedData);
     // Acceder a los datos
     nameuser = parsedData.nombre;
-    return true
-  }else {
-    return false
+    return true;
+  } else {
+    return false;
   }
 }
-
+export function removeLocalStorage() {
+  localStorage.removeItem("data");
+}
 async function fetchData() {
   try {
     const response = await axios.get(url, { headers });
@@ -111,21 +124,53 @@ export async function getDataModule(userMessage) {
         Date: item.Modified,
       };
     });
-    return MatchingItem(userMessage,transformedData)
+    return MatchingItem(userMessage, transformedData);
   } catch (error) {
     console.log(error);
   }
 }
 const MatchingItem = (userMessage, searchData) => {
   // Encuentra coincidencias entre el mensaje del usuario y los datos de la API
-  const matchingItem = searchData.filter((item) =>
-    item.title.toLowerCase().includes(userMessage.toLowerCase())
-  ).sort((a,b) => {
-    // Ordena por fecha en orden ascendente (la más cercana primero)
-    const dateA = new Date(a.Date); 
-    const dateB = new Date(b.Date);
-    return dateA - dateB;
-  })
-  .slice(0, 5); // Toma los primeros 5 elementos después de ordenar
+  const matchingItem = searchData
+    .filter((item) =>
+      item.title.toLowerCase().includes(userMessage.toLowerCase())
+    )
+    .sort((a, b) => {
+      // Ordena por fecha en orden ascendente (la más cercana primero)
+      const dateA = new Date(a.Date);
+      const dateB = new Date(b.Date);
+      return dateA - dateB;
+    })
+    .slice(0, 5); // Toma los primeros 5 elementos después de ordenar
   return matchingItem;
 };
+
+export async function sendDataQuestion(Question_Data) {
+  /*   const data = {
+    __metadata: {
+      type: "SP.Data.Preguntas_x005f_Respuestas_x005f_AsistenteListItem",
+    },
+    Title: "Test",
+    Pregunta: "Test Pregunta",
+    Fecha: "2023-12-20T05:00:00Z",
+    Nombre_x0020_Solicitante: "Davison",
+    Correo: "davisontest@hotmail.com",
+    Respuesta: "respuesta pregunta",
+    Categoria: "Ninguna",
+    Publicar: false,
+  }; */
+  try {
+    const response = await axios.post(
+      "http://192.168.20.219:22470/Ciudadanos/_api/lists/getbytitle('Preguntas_Respuestas_Asistente')/items",
+      {
+        accept: "application/json;odata=verbose",
+        "X-RequestDigest": '$("#__REQUESTDIGEST").val()',
+        "Content-Type": "application/json; odata=verbose",
+      },
+      Question_Data
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+}

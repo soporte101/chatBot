@@ -18,6 +18,8 @@
     <div class="chatbot">
       <header>
         <button id="btnBack"><i class='bx bx-log-out-circle'></i></button>
+        <button id="btnLogout">Cerrar sesión</i></button>
+
         <h2>Chatbot</h2>
         <span class="close-btn material-symbols-outlined"><i class="bx bx-x"></i></span>
       </header>
@@ -31,7 +33,7 @@
       <!-- SCREEN FOR FORM -->
       <section class="form register-chat screen">
         <div class="header-form">
-          <h3>BIENVENIDO A TU ASISTENTE VIRTUAL DE LA ALCALDIA DE URIBIA</h3>
+          <h3 id="title-header"></h3>
           <p>
             Ingrese por favor los siguientes datos para continuar con el
             proceso.
@@ -110,6 +112,7 @@
               <textarea id="txt-question" placeholder="Haz tu pregunta aquí"></textarea>
               <button id="btn-sendQuestion">Enviar</button>
             </div>
+            <div id="sendQuestion-error" class="error-message"></div>
           </div>
           <div id="hidden-answer">
             <ul class="chatbox hidden screen">
@@ -129,7 +132,8 @@
             <button class="menu-question" id="item-question">IMPUESTOS Y FINANZAS</button>
             <button class="menu-question" id="item-question">EVENTOS Y ACTIVIDADES</button>
             <button class="menu-question" id="item-question">NOTICIAS Y ACTUALIZACIONES</button>
-            <button class="menu-question volver-menu" id="item-question"><i class='bx bx-home-alt-2'></i>VOLVER AL MENU </button>
+            <button class="menu-question volver-menu" id="item-question"><i class='bx bx-home-alt-2'></i>VOLVER AL MENÚ
+            </button>
 
           </div>
         </div>

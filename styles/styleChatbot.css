@@ -123,6 +123,19 @@ header h2 {
   border: none;
   color: white;
 }
+#btnLogout {
+  display: none;
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+  font-size: 12px;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  color: white;
+}
 .hidden {
   display: none;
 }

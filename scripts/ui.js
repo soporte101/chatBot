@@ -3,8 +3,11 @@ import {
   getQuestions,
   saveEnLocalStorage,
   getDatalocalStorage,
+  removeLocalStorage,
   getDataNews,
   getDataModule,
+  getNameAlcaldia,
+  sendDataQuestion,
 } from "./services.js";
 
 //Formulario pirnipal chatbot
@@ -29,34 +32,61 @@ const btnAsistente = document.querySelector("#item-question");
 const containtMain = document.querySelector(".containt-main");
 const btnsendQuestion = document.getElementById("btn-sendQuestion");
 const btnBack = document.getElementById("btnBack");
+const btnLogout = document.getElementById("btnLogout");
 const questionforbot = document.querySelector(".questionforbot");
 const optionsQuestion2 = document.querySelector(".optionsQuestion2");
 // Obtén todos los elementos con la clase "item-question"
 const btnOptions = document.querySelectorAll(".menu-question");
+const sendQuestionerror = document.getElementById("sendQuestion-error");
+
+//debe ir los campos que se crearon en la lista de sharepoint
+let DataQuestion = {
+  Pregunta: "",
+  Fecha: "",
+  Nombre_x0020_Solicitante: "",
+  Correo: "",
+  Categoria: "",
+  Publicar: false,
+};
 
 //Toast
 btnsendQuestion.addEventListener("click", () => {
-  Toastify({
-    text: "Pregunta enviada con Exito",
-    duration: 3000,
-    //newWindow: true,
-    selector: questionsbyType,
-    close: true,
-    gravity: "top", // `top` or `bottom`
-    position: "right", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: {
-      background: "linear-gradient(to right,  blue,#788bff,)",
-    },
-    onClick: function () {
-      console.log("hola");
-    }, // Callback after click
-    callback: function () {
-      //questionsbyType.style.visibility = "visible";
-      containtMain.classList.add("hidden-element");
-      questiontypes.style.display = "block";
-    },
-  }).showToast();
+  let fechaActual = new Date();
+  const pregunta = document.getElementById("txt-question").value;
+  let dataLocal = JSON.parse(localStorage.getItem("data"));
+
+  if (!pregunta.trim()) {
+    sendQuestionerror.textContent =
+      "Por favor haz la pregunta para poder enviarla.";
+    return;
+  } else {
+    sendQuestionerror.textContent = "";
+    /* Llenado de Datos */
+    DataQuestion.Pregunta = pregunta;
+    DataQuestion.Nombre_x0020_Solicitante = dataLocal.nombre;
+    DataQuestion.Correo = dataLocal.email;
+    DataQuestion.Fecha = fechaActual.toISOString();
+    sendDataQuestion(DataQuestion);
+    Toastify({
+      text: "Pregunta enviada con Exito",
+      duration: 2500,
+      //newWindow: true,
+      selector: questionsbyType,
+      close: true,
+      gravity: "top", // `top` or `bottom`
+      position: "right", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "linear-gradient(to right,  blue,#788bff,)",
+      },
+      onClick: function () {}, // Callback after click
+      callback: function () {
+        //questionsbyType.style.visibility = "visible";
+        containtMain.classList.add("hidden-element");
+        questiontypes.style.display = "block";
+      },
+    }).showToast();
+  }
 });
 
 //Funcion para obtener las preguntas
@@ -74,6 +104,7 @@ const obtainFilters = async () => {
 let userMessage = null; // Variable to store user's message
 let nameuser = JSON.parse(localStorage.getItem("data"))?.nombre || "User";
 let nameModule = "";
+
 const createChatLi = (message, className) => {
   const messages = chatbox.querySelectorAll(".incoming");
   //identifica si hay 2 mensajes seguido y agrega margin
@@ -111,6 +142,7 @@ const createChatLi = (message, className) => {
     button2.addEventListener("click", () => {
       container_chatbox.classList.add("hidden");
       questiontypes.style.display = "block";
+      btnLogout.style.display = "block";
     });
     chatLi.querySelector("p").appendChild(document.createElement("br"));
     chatLi.querySelector("p").appendChild(button1);
@@ -130,10 +162,13 @@ const normalize = (text) => {
 };
 
 //Formulario de registro
-export const actionForm = () => {
-  console.log(getDatalocalStorage());
+export const actionForm = async () => {
+  const mensaje = document.querySelector("#title-header");
+  let nameAlcaldia = await getNameAlcaldia();
+  mensaje.innerHTML += `BIENVENIDO A TU ASISTENTE VIRTUAL DE LA ${nameAlcaldia.toUpperCase()}`;
 
   if (getDatalocalStorage()) {
+    getDatalocalStorage();
     TypescreenQuestions();
   } else {
     submitButton.addEventListener("click", function (event) {
@@ -241,18 +276,17 @@ function ScreenMainChat(NameModule) {
 
 // Pantalla de preguntas por tipo
 async function TypescreenQuestions() {
+  nameuser = (await JSON.parse(localStorage.getItem("data"))?.nombre) || "User";
+  Logout();
   questiontypes.style.display = "block";
   container_form.style.display = "none";
   //loading
-  /*   const loadingElement = document.createElement("div");
-  loadingElement.innerText = "Cargando..."; */
   showLoadingScreen(containerQuestions);
   const mensaje = document.querySelector("#welcome-message");
   mensaje.innerHTML +=
     "!Hola, " +
     `${nameuser}` +
     " !😄 Explora información importante seleccionando tu módulo de interés. Encuentra respuestas a preguntas frecuentes o déjanos tu propia pregunta. ¿Quieres interactuar con nuestro asistente virtual? <br> Estamos aqui para ayudarte. ¡Bienvenido!";
-
   const typeQuestion = await obtainFilters();
   typeQuestion.forEach((Tquestion) => {
     const button = document.createElement("button");
@@ -262,8 +296,10 @@ async function TypescreenQuestions() {
     button.addEventListener("click", () => {
       // Acciones cuando se hace clic en el botón
       questionsbyType.style.display = "block";
+      sendQuestionerror.textContent = "";
       questiontypes.style.display = "none";
       screenQuestions(Tquestion);
+      btnLogout.style.display = "none";
     });
     containerQuestions.appendChild(button);
   });
@@ -271,6 +307,7 @@ async function TypescreenQuestions() {
 }
 // Pantalla de seccion de preguntas por el tipo de pregunta  escogida.
 async function screenQuestions(typeQuestion) {
+  DataQuestion.Categoria = typeQuestion;
   containtMain.classList.remove("hidden-element");
   const containerQuestions = document.querySelector(".question-recent");
   containerQuestions.innerHTML = "";
@@ -318,7 +355,7 @@ btnAsistente.addEventListener("click", () => {
   mensaje.innerHTML = "";
   mensaje.innerHTML +=
     `${nameuser}` + ", estas son las opciones que te puedo ofrecer: ";
-
+  btnLogout.style.display = "none";
   questiontypes.style.display = "none";
   questionforbot.style.display = "block";
   questionsbyType.style.display = "none";
@@ -328,18 +365,14 @@ btnAsistente.addEventListener("click", () => {
     button.addEventListener("click", function () {
       // Lógica o acción específica para cada botón
       const buttonText = this.textContent;
-      console.log("clic");
       if (button.classList.contains("volver-menu")) {
         // Lógica específica para el botón "VOLVER AL MENU"
-        console.log("Hiciste clic en: VOLVER AL MENU");
         questiontypes.style.display = "block";
         questionforbot.style.display = "none";
-        /*         container_chatbox.classList.add("hidden");
-        chatBoxInput.style.visibility = "hidden"; */
+        btnLogout.style.display = "block";
         // Agrega aquí la lógica específica que deseas para este botón
       } else {
         // Lógica para los otros botones
-        console.log(`Hiciste clic en: ${buttonText}`);
         nameModule = buttonText;
         ScreenMainChat(buttonText);
       }
@@ -357,8 +390,6 @@ const handleChat = async () => {
   // Append the user's message to the chatbox
   chatbox.appendChild(createChatLi(userMessage, "outgoing"));
   chatbox.scrollTo(0, chatbox.scrollHeight);
-
-  // Simulate the response
   const botResponse = await generateResponse(userMessage);
   // Mostrar mensaje inicial antes de los resultados
   const initialMessage = "Estos fueron los resultados que encontré:";
@@ -438,4 +469,14 @@ function hideLoadingScreen() {
   if (loadingElement) {
     loadingElement.parentNode.removeChild(loadingElement);
   }
+}
+
+// Logout
+
+function Logout() {
+  btnLogout.style.display = "block";
+  btnLogout.addEventListener("click", () => {
+    removeLocalStorage();
+    location.reload();
+  });
 }
